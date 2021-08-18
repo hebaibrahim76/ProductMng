@@ -1,0 +1,102 @@
+﻿@model mvc.Models.Product
+@using System.Web.Optimization;
+@using System.Web;
+@using Microsoft.AspNetCore.Mvc;
+@using System.Web.Mvc;
+@{
+    ViewData["Title"] = "Create";
+    
+}
+<head>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+</head>
+
+<h4>Add New Product</h4>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @foreach(var cat in ViewBag.Cats)
+            {
+                <input type="radio" name="categ" value="@cat.IdCategory" />  <label>@cat.Name</label><br />
+            }
+            </div>
+          
+           
+            <div class="form-group">
+                <label asp-for="SubCategory.Name" class="control-label">Choose SubCategory</label><br />
+                <select asp-for="SubCategory.Name" id="dropdown" class="custom-select">
+                   
+                </select>
+            </div>
+           
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Expiraydate" class="control-label"></label>
+                <input asp-for="Expiraydate" class="form-control" />
+                <span asp-validation-for="Expiraydate" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            var arr =  @Html.Raw(
+Json.Serialize(
+((IEnumerable<SubCategory>)ViewBag.Subs).Select(user => new
+{
+    IdCategory = user.IdCategory,
+    Name = user.Name,
+    IdSub = user.IdSub
+})
+       ));
+            $("input:radio").change(function () {
+                var arr2 = [];
+                $('#dropdown').empty();
+                var selected = $('input[name="categ"]:checked').val();
+                for (var i = 0; i < arr.length; i++) {
+                    if (arr[i].idCategory == parseInt(selected)) {
+                        arr2.push(arr[i]);
+                    }
+                }
+                var $dropdown = $('#dropdown');
+                $.each(arr2, function () {
+                    $dropdown.append($("<option />").val(this.name).text(this.name));
+                })
+
+            });
+            console.table(arr);
+        });
+        
+        
+    </script>
+}

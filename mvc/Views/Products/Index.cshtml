@@ -1,0 +1,90 @@
+﻿
+@model X.PagedList.IPagedList<mvc.Models.Product>
+@using X.PagedList.Mvc.Core;
+
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewData["Title"] = "Index";
+}
+<style>
+    #page{
+        text-align:center;
+        margin:auto;
+    }
+  
+</style>
+
+<h1>Products List</h1>
+
+<p>
+    <a asp-action="Create">Add New Product</a>
+</p><br />
+@using (Html.BeginForm("Index", "Products", FormMethod.Get))
+{
+    <p>
+        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Search" class="btn btn-primary" />
+    </p>
+}
+<br />
+<table class="table">
+    <thead>
+        <tr>
+
+            <th>
+                @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+            </th>
+            <th>
+                @Html.ActionLink("SubCategory", "Index", new { sortOrder = ViewBag.SubSortParm })
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                @Html.ActionLink("Expiry Date", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SubCategory.Name)
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Expiraydate)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.IdPr }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.IdPr }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.IdPr })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<br><hr><br>
+<p id="page">
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+        new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }),
+        new X.PagedList.Web.Common.PagedListRenderOptions()
+        {
+            LiElementClasses=new string[] {"page-item"},
+            PageClasses=new string[] {"page-link"}
+        }
+        )
+
+</p>

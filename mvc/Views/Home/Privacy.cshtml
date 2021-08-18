@@ -1,0 +1,64 @@
+﻿@{
+    ViewData["Title"] = "News";
+}
+
+<style>
+    .all-browsers {
+        margin: 0;
+        padding: 5px;
+        background-color: cadetblue;
+    }
+
+        .all-browsers > h1, .browser {
+            margin: 10px;
+            padding: 5px;
+        }
+
+    .browser {
+        background: white;
+        border-radius:25px;
+        border: 5px solid black;
+    }
+
+        .browser > h4, p {
+            margin: 4px;
+            font-size: 90%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
+        }
+</style>
+
+
+    <article class="all-browsers">
+        <h1>Latest News</h1>
+        <article class="browser">
+            <header><h4>Texas Gov. Greg Abbott tests positive for COVID-19</h4></header>
+            
+            <p>
+                Texas Gov. Greg Abbott announced he tested positive for COVID-19 on Tuesday despite being fully vaccinated.
+
+                Gov. Abbott received his first dose of the Pfizer-BioNtech COVID-19 vaccine in December of last year, which he credited for his mild case so far.
+            </p>
+            <footer>
+                <a href="https://www.foxnews.com/politics/texas-greg-abbott-tests-positive-covid" target="_blank">More Details</a>
+            </footer>
+        </article>
+        <article class="browser">
+            <header><h4>DeSantis top donor invests in COVID drug governor promotes</h4></header>
+            
+            <p>Florida Gov. Ron DeSantis — who has been criticized for opposing mask mandates and vaccine passports — is now touting a COVID-19 antibody treatment in which a top donor’s company has invested millions of dollars.</p>
+            <footer>
+                <a href="https://apnews.com/article/joe-biden-business-health-coronavirus-pandemic-4d0d18b24e0dd41de2424e19b3ed994f" target="_blank" >More Details</a>
+            </footer>
+        </article>
+        <article class="browser">
+            <header><h4>New Zealand becomes latest country to confirm Delta outbreak</h4></header>
+            
+            <p>New Zealand's first community Covid-19 case in six months is the Delta variant -- and genome sequencing shows that it's linked to the growing outbreak in neighboring Australia, Prime Minister Jacinda Ardern said</p>
+            <footer>
+                <a href="https://edition.cnn.com/2021/08/17/asia/new-zealand-delta-outbreak-intl-hnk/index.html" target="_blank">More Details</a>
+            </footer>
+        </article>
+    </article>
